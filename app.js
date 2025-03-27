@@ -8,7 +8,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var mydataRouter = require('./routes/mydata');
 var computationRouter = require('./routes/computation');
-// Ensure this file exists
 
 var app = express();
 
@@ -27,15 +26,16 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/mydata', mydataRouter);
 app.use('/computation', computationRouter);
- // Correctly set up
 
 // Catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     next(createError(404));
 });
 
 // Error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
+    console.error(err.stack); // ✅ Logs error to console for debugging
+
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
@@ -44,8 +44,9 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-// ✅ **Move `listen` outside the error handler**
-const PORT = 3001;
+// ✅ Ensure port is not already in use before starting
+const PORT = process.env.PORT || 3001;
+
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
 });
