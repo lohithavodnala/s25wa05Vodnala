@@ -45,7 +45,7 @@ app.use(function (err, req, res, next) {
 });
 
 // ✅ Ensure port is not already in use before starting
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
